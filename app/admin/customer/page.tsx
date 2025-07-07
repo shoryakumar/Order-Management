@@ -8,7 +8,7 @@ interface Customer {
 }
 
 async function getCustomers(): Promise<Customer[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/directus`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/customer`, {
     cache: 'no-store',
   });
   const data = await res.json();
@@ -31,7 +31,7 @@ export default async function CustomerPage() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">Customers</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Customers Details</h1>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white rounded-lg shadow-md">
           <thead>
