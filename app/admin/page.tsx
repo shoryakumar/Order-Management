@@ -17,8 +17,13 @@ export default function AdminPage() {
     },
     {
       title: 'Number of Orders (Yesterday)',
-      href: '/admin/count-orders',
+      href: '/admin/count-orders-yesterday',
       description: 'View the total number of orders placed yesterday.'
+    },
+    {
+      title: 'Number of Orders (Previous Week)',
+      href: '/admin/count-orders-previous-week',
+      description: 'View the total number of orders placed in the previous week.'
     },
   ];
 
