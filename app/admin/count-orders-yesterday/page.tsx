@@ -38,7 +38,7 @@ export default function CountOrdersYesterdayPage() {
     fetchHourlyOrders();
   }, []);
 
-  const totalOrders = hourlyOrders.reduce((sum, order) => sum + order.no_of_orders, 0);
+  const totalOrders = hourlyOrders.reduce((sum, order) => sum + Number(order.no_of_orders), 0);
 
   if (loading) {
     return (

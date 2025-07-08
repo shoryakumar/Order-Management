@@ -153,35 +153,42 @@ const DashboardPage = () => {
       {error ? (
         <div className="text-red-500 text-center mt-8">{error}</div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white rounded-lg shadow-md">
-            <thead>
-              <tr className="bg-rose-600 text-white">
-                <th className="py-3 px-6 text-left">Product Name</th>
-                <th className="py-3 px-6 text-left">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product.product_id} className="border-b hover:bg-rose-50 transition-colors">
-                  <td className="py-3 px-6 font-medium">{product.product_name}</td>
-                  <td className="py-3 px-6">
-                    <button 
-                      className={`px-4 py-2 rounded transition-colors ${
-                        buyingProduct === product.product_id
-                          ? 'bg-gray-400 text-white cursor-not-allowed'
-                          : 'bg-rose-600 text-white hover:bg-rose-700'
-                      }`}
-                      onClick={() => handleBuyProduct(product.product_id, product.product_name)}
-                      disabled={buyingProduct === product.product_id}
-                    >
-                      {buyingProduct === product.product_id ? 'Processing...' : 'Buy'}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="px-6 py-4 bg-rose-600 text-white">
+              <h2 className="text-xl font-semibold">Available Products</h2>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {products.map((product) => (
+                    <tr key={product.product_id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{product.product_name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <button 
+                          className={`px-4 py-2 rounded transition-colors ${
+                            buyingProduct === product.product_id
+                              ? 'bg-gray-400 text-white cursor-not-allowed'
+                              : 'bg-rose-600 text-white hover:bg-rose-700'
+                          }`}
+                          onClick={() => handleBuyProduct(product.product_id, product.product_name)}
+                          disabled={buyingProduct === product.product_id}
+                        >
+                          {buyingProduct === product.product_id ? 'Processing...' : 'Buy'}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       )}
     </div>

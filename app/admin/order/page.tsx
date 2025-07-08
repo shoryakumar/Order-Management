@@ -30,26 +30,31 @@ export default async function OrderPage() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">Order Details</h1>
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white rounded-lg shadow-md">
-          <thead>
-            <tr className="bg-rose-600 text-white">
-              <th className="py-3 px-6 text-left">Customer Name</th>
-              <th className="py-3 px-6 text-left">Product Name</th>
-              <th className="py-3 px-6 text-left">Ordered At</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order.order_id} className="border-b hover:bg-rose-50 transition-colors">
-                <td className="py-3 px-6 font-medium">{order.customer_id?.full_name || '-'}</td>
-                <td className="py-3 px-6">{order.product_id?.product_name || '-'}</td>
-                <td className="py-3 px-6 text-gray-500">{new Date(order.ordered_at).toLocaleString()}</td>
+      <h1 className="text-4xl font-bold text-center mb-8">Order Details</h1>
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="px-6 py-4 bg-rose-600 text-white">
+          <h2 className="text-xl font-semibold">Order Details</h2>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="min-w-full">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ordered At</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {orders.map((order) => (
+                <tr key={order.order_id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.customer_id?.full_name || '-'}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.product_id?.product_name || '-'}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(order.ordered_at).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

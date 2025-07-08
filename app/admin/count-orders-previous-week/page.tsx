@@ -38,7 +38,7 @@ export default function CountOrdersPreviousWeekPage() {
     fetchWeeklyOrders();
   }, []);
 
-  const totalOrders = weeklyOrders.reduce((sum, order) => sum + order.no_of_orders, 0);
+  const totalOrders = weeklyOrders.reduce((sum, order) => sum + Number(order.no_of_orders), 0);
 
   if (loading) {
     return (
