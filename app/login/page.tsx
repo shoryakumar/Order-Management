@@ -39,6 +39,7 @@ export default function LoginPage() {
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('userEmail', customer.email);
           localStorage.setItem('userName', customer.full_name);
+          localStorage.setItem('customerId', customer.customer_id);
           
           // Redirect to dashboard
           router.push('/');

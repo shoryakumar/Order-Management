@@ -8,6 +8,7 @@ export const getUserInfo = () => {
   return {
     email: localStorage.getItem('userEmail'),
     name: localStorage.getItem('userName'),
+    customer_id: localStorage.getItem('customerId'),
   };
 };
 
@@ -16,5 +17,6 @@ export const logout = (): void => {
   localStorage.removeItem('isLoggedIn');
   localStorage.removeItem('userEmail');
   localStorage.removeItem('userName');
+  localStorage.removeItem('customerId');
   window.location.href = '/';
 }; 

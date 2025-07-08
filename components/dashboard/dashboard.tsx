@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { isLoggedIn, getUserInfo, logout } from "../../utils/auth";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface Product {
   product_id: string;
@@ -13,9 +15,11 @@ const DashboardPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [buyingProduct, setBuyingProduct] = useState<string | null>(null);
+  const router = useRouter();
   const [authState, setAuthState] = useState({
     isLoggedIn: false,
-    userInfo: null as { email: string | null; name: string | null } | null,
+    userInfo: null as { email: string | null; name: string | null; customer_id: string | null } | null,
   });
 
   useEffect(() => {
@@ -57,6 +61,42 @@ const DashboardPage = () => {
 
   const handleLogout = () => {
     logout();
+  };
+
+  const handleBuyProduct = async (productId: string, productName: string) => {
+    // Check if user is logged in
+    if (!authState.isLoggedIn || !authState.userInfo?.customer_id) {
+      toast.error('Please login to purchase products');
+      router.push('/login');
+      return;
+    }
+
+    setBuyingProduct(productId);
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customer_id: authState.userInfo.customer_id,
+          product_id: productId,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success(`Successfully purchased ${productName}!`);
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.error || 'Failed to purchase product');
+      }
+    } catch (error) {
+      console.error('Error purchasing product:', error);
+      toast.error('Failed to purchase product. Please try again.');
+    } finally {
+      setBuyingProduct(null);
+    }
   };
 
   if (loading) {
@@ -126,8 +166,16 @@ const DashboardPage = () => {
                 <tr key={product.product_id} className="border-b hover:bg-rose-50 transition-colors">
                   <td className="py-3 px-6 font-medium">{product.product_name}</td>
                   <td className="py-3 px-6">
-                    <button className="px-4 py-2 bg-rose-600 text-white rounded hover:bg-rose-700 transition-colors">
-                      Buy
+                    <button 
+                      className={`px-4 py-2 rounded transition-colors ${
+                        buyingProduct === product.product_id
+                          ? 'bg-gray-400 text-white cursor-not-allowed'
+                          : 'bg-rose-600 text-white hover:bg-rose-700'
+                      }`}
+                      onClick={() => handleBuyProduct(product.product_id, product.product_name)}
+                      disabled={buyingProduct === product.product_id}
+                    >
+                      {buyingProduct === product.product_id ? 'Processing...' : 'Buy'}
                     </button>
                   </td>
                 </tr>

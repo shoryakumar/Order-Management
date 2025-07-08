@@ -14,3 +14,35 @@ export async function GET() {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const { customer_id, product_id } = body;
+
+    if (!customer_id || !product_id) {
+      return NextResponse.json(
+        { error: 'Customer ID and Product ID are required' },
+        { status: 400 }
+      );
+    }
+
+    const orderData = {
+      customer_id,
+      product_id,
+      ordered_at: new Date().toISOString(),
+    };
+
+    const response = await axios.post('http://localhost:8055/items/Order', orderData, {
+      headers: {
+        Authorization: `Bearer ${process.env.DIRECTUS_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return NextResponse.json(response.data, { status: 201 });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
