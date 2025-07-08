@@ -50,6 +50,7 @@ export default function LoginPage() {
         setError('Failed to fetch customer data');
       }
     } catch (err) {
+      console.log(err);
       setError('Login failed. Please try again.');
     } finally {
       setIsLoading(false);
@@ -116,7 +117,7 @@ export default function LoginPage() {
 
           <div className="text-center">
             <p className="text-sm text-gray-600">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <a href="/register" className="font-medium text-rose-600 hover:text-rose-500">
                 Create one here
               </a>
