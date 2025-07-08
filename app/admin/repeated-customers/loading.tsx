@@ -1,8 +1,34 @@
-export default function LoadingCustomers() {
-    return (
-      <div className="flex flex-col justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-rose-600 border-opacity-50 mb-4"></div>
-        <div className="text-lg text-rose-600 font-semibold">Loading customers...</div>
+export default function Loading() {
+  return (
+    <div className="container mx-auto py-8">
+      <div className="mb-8">
+        <div className="h-10 bg-gray-200 rounded animate-pulse mb-4"></div>
+        <div className="h-6 bg-gray-200 rounded animate-pulse mb-6 w-96 mx-auto"></div>
       </div>
-    );
-  }
+      
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="px-6 py-4 bg-rose-600">
+            <div className="h-6 bg-white bg-opacity-20 rounded animate-pulse"></div>
+          </div>
+          
+          <div className="p-8">
+            <div className="space-y-4">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="flex space-x-4">
+                  <div className="h-4 bg-gray-200 rounded animate-pulse w-32"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse flex-1"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse w-16"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="mt-8 text-center">
+        <div className="h-10 bg-gray-200 rounded animate-pulse w-48 mx-auto"></div>
+      </div>
+    </div>
+  );
+}
