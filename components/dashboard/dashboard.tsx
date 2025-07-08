@@ -114,7 +114,7 @@ const DashboardPage = () => {
       {/* Header Section */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <h1 className="text-4xl font-bold text-center sm:text-left">Products</h1>
+          <h1 className="text-4xl font-bold text-center sm:text-left">Dashboard</h1>
           
           {/* Header Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
